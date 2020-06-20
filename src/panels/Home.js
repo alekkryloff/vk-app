@@ -8,6 +8,17 @@ import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
 import Div from '@vkontakte/vkui/dist/components/Div/Div';
 import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
 
+import './Home.css';
+import TodoList from './components/TodoList';
+
+const todos = [
+    {id: 1, completed: false, title: 'Note 1'},
+    {id: 2, completed: false, title: 'Note 2'},
+    {id: 3, completed: false, title: 'Note 3'},
+    {id: 4, completed: false, title: 'Note 4'},
+    {id: 5, completed: false, title: 'Note 5'},
+]
+
 const Home = ({ id, go, fetchedUser }) => (
 	<Panel id={id}>
 		<PanelHeader>Example</PanelHeader>
@@ -20,6 +31,10 @@ const Home = ({ id, go, fetchedUser }) => (
 				{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
 			</Cell>
 		</Group>}
+
+		<Div className='wrapper'>
+			<TodoList todos={todos}/>
+		</Div>
 
 		<Group title="Navigation Example">
 			<Div>
