@@ -1,62 +1,79 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
-import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
-import Button from '@vkontakte/vkui/dist/components/Button/Button';
-import Group from '@vkontakte/vkui/dist/components/Group/Group';
-import Cell from '@vkontakte/vkui/dist/components/Cell/Cell';
-import Div from '@vkontakte/vkui/dist/components/Div/Div';
-import Avatar from '@vkontakte/vkui/dist/components/Avatar/Avatar';
+import React from "react";
+import PropTypes from "prop-types";
+import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
+import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
+import Button from "@vkontakte/vkui/dist/components/Button/Button";
+import Group from "@vkontakte/vkui/dist/components/Group/Group";
+import Cell from "@vkontakte/vkui/dist/components/Cell/Cell";
+import Div from "@vkontakte/vkui/dist/components/Div/Div";
+import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 
-import './Home.css';
-import TodoList from './components/TodoList';
+import "./Home.css";
+import TodoList from "./components/TodoList";
+import AddTodo from "./components/AddTodo";
 
-const todos = [
-    {id: 1, completed: false, title: 'Note 1'},
-    {id: 2, completed: false, title: 'Note 2'},
-    {id: 3, completed: false, title: 'Note 3'},
-    {id: 4, completed: false, title: 'Note 4'},
-    {id: 5, completed: false, title: 'Note 5'},
-]
+const Home = ({
+  id,
+  go,
+  fetchedUser,
+  todos,
+  toggleTodo,
+  removeTodo,
+  addTodo,
+  loading,
+}) => (
+  <Panel id={id}>
+    <PanelHeader>Example</PanelHeader>
+    {fetchedUser && (
+      <Group title="User Data Fetched with VK Bridge">
+        <Cell
+          before={
+            fetchedUser.photo_200 ? (
+              <Avatar src={fetchedUser.photo_200} />
+            ) : null
+          }
+          description={
+            fetchedUser.city && fetchedUser.city.title
+              ? fetchedUser.city.title
+              : ""
+          }
+        >
+          {`${fetchedUser.first_name} ${fetchedUser.last_name}`}
+        </Cell>
+      </Group>
+    )}
 
-const Home = ({ id, go, fetchedUser }) => (
-	<Panel id={id}>
-		<PanelHeader>Example</PanelHeader>
-		{fetchedUser &&
-		<Group title="User Data Fetched with VK Bridge">
-			<Cell
-				before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-				description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-			>
-				{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-			</Cell>
-		</Group>}
+    {/* TODO */}
+    <Div className="wrapper">
+      <AddTodo onCreate={addTodo} />
+      {todos.length ? (
+        <TodoList todos={todos} onToggle={toggleTodo} removeTodo={removeTodo} />
+      ) : loading ? null : (
+        <p>No tasks :3</p>
+      )}
+    </Div>
 
-		<Div className='wrapper'>
-			<TodoList todos={todos}/>
-		</Div>
-
-		<Group title="Navigation Example">
-			<Div>
-				<Button size="xl" level="2" onClick={go} data-to="persik">
-					Show me the Persik, please
-				</Button>
-			</Div>
-		</Group>
-	</Panel>
+    <Group title="Navigation Example">
+      <Div>
+        <Button size="xl" level="2" onClick={go} data-to="persik">
+          Show me the Persik, please
+        </Button>
+      </Div>
+    </Group>
+  </Panel>
 );
 
 Home.propTypes = {
-	id: PropTypes.string.isRequired,
-	go: PropTypes.func.isRequired,
-	fetchedUser: PropTypes.shape({
-		photo_200: PropTypes.string,
-		first_name: PropTypes.string,
-		last_name: PropTypes.string,
-		city: PropTypes.shape({
-			title: PropTypes.string,
-		}),
-	}),
+  id: PropTypes.string.isRequired,
+  go: PropTypes.func.isRequired,
+  fetchedUser: PropTypes.shape({
+    photo_200: PropTypes.string,
+    first_name: PropTypes.string,
+    last_name: PropTypes.string,
+    city: PropTypes.shape({
+      title: PropTypes.string,
+    }),
+  }),
 };
 
 export default Home;
