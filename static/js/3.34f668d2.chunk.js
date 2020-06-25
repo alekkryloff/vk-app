@@ -1,2 +1,0 @@
-(this["webpackJsonpvk-app"]=this["webpackJsonpvk-app"]||[]).push([[3],{155:function(e,n,t){"use strict";t.r(n);var a=t(0),r=t.n(a),s=t(7),i={span:{display:"flex",alignItems:"center",padding:".5rem 1rem",border:"1px solid #ccc",borderRadius:"4px",marginBottom:".5rem"}};n.default=function(e){var n=e.notesId,t=e.title,a=e.onClick;return r.a.createElement(s.b,{size:"l",mode:"shadow",onClick:function(){return a(n={notesId:n})}},r.a.createElement("span",{style:i.span},r.a.createElement(s.n,{weight:"bold"},t)))}}}]);
-//# sourceMappingURL=3.34f668d2.chunk.js.map
